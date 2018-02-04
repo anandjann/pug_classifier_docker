@@ -11,7 +11,6 @@ The data comes from URL's from [ImageNet](http://www.image-net.org/).  The `/dat
 ## Docker Images
 
 - [Modeling: python3 + theano + jupyter notebook for the CPU](https://hub.docker.com/r/mdagost/pug_classifier_notebook/)
-- [Modeling: python3 + theano + jupyter notebook for the GPU](https://hub.docker.com/r/mdagost/pug_classifier_gpu_notebook/)
 - [API: python3 + theano + jupyter notebook + flask](https://hub.docker.com/r/mdagost/pug_classifier_flask/)
 - [Frontend: R + shiny](https://hub.docker.com/r/mdagost/pug_classifier_shiny/)
 
@@ -56,62 +55,6 @@ docker-machine env awsnotebook
 ```
 
 Visit http://{{IP}}:8888/ to use the notebook.  **Note:** if you're using AWS you may have to add an inbound rule to the docker-machine security group opening up port 8888.
-
-## Interactive Notebook and Modeling on the GPU
-Create a GPU instance:
-
-```
-docker-machine create --driver amazonec2 --amazonec2-access-key XXXX --amazonec2-secret-key XXXX --amazonec2-root-size 100 --amazonec2-instance-type g2.2xlarge --amazonec2-ami ami-76b2a71e awsgpunotebook
-```
-
-If you want the ec2 instance to be on a private VPN:
-
-```
-docker-machine create --driver amazonec2 --amazonec2-access-key XXXX --amazonec2-secret-key XXXX --amazonec2-root-size 100 --amazonec2-zone b --amazonec2-vpc-id vpc-XXXX --amazonec2-subnet-id subnet-XXXX --amazonec2-instance-type g2.2xlarge --amazonec2-private-address-only --amazonec2-ami ami-76b2a71e awsgpunotebook
-```
-
-SSH in:
-
-```
-docker-machine ssh awsgpunotebook
-```
-
-Set up the GPU following the instructions [here](https://github.com/mdagost/MScA_code/blob/master/lecture_08/bootstrap_aws_gpu.sh).
-
-Install `nvidia-docker` like so:
-
-```
-git clone https://github.com/NVIDIA/nvidia-docker
-cd nvidia-docker
-sudo make install
-sudo nvidia-docker volume setup
-```
-
-Get our software:
-
-```
-git clone https://github.com/mdagost/pug_classifier.git
-cd pug_classifier
-curl http://pug-classifier.s3.amazonaws.com/cnn_pug_model_architecture.json > api/cnn_pug_model_architecture.json
-curl http://pug-classifier.s3.amazonaws.com/cnn_pug_model_weights.h5 > api/cnn_pug_model_weights.h5
-curl http://pug-classifier.s3.amazonaws.com/pugs_vs_golden_retrvrs_data.pkl.gz > data/pugs_vs_golden_retrvrs_data.pkl.gz
-curl http://pug-classifier.s3.amazonaws.com/vgg16_weights.h5 > model/vgg16_weights.h5
-```
-
-Run the container:
-
-```
-sudo nvidia-docker run -d -p 8888:8888 -v /home/ubuntu/pug_classifier:/home/ubuntu mdagost/pug_classifier_gpu_notebook
-```
-
-Get the IP of the instance:
-
-```
-docker-machine env awsnotebook
-```
-
-Visit http://{{IP}}:8888/ to use the notebook. **Note:** if you're using AWS you may have to add an inbound rule to the docker-machine security group opening up port 8888.
-
 
 ## Shiny App Hitting the Flask API
 
