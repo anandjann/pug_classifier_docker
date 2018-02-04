@@ -8,13 +8,6 @@ Once the model is built and the weights are saved, we deploy a simple web app.  
 
 The data comes from URL's from [ImageNet](http://www.image-net.org/).  The `/data` directory of the project has the URL's as well as code for downloading them and normalizing the images.  There's also a gzipped pickle file stored in Git LFS so the user doesn't need to download all of the original images.
 
-## Docker Images
-
-- [Modeling: python3 + theano + jupyter notebook for the CPU](https://hub.docker.com/r/mdagost/pug_classifier_notebook/)
-- [API: python3 + theano + jupyter notebook + flask](https://hub.docker.com/r/mdagost/pug_classifier_flask/)
-- [Frontend: R + shiny](https://hub.docker.com/r/mdagost/pug_classifier_shiny/)
-
-
 ## Interactive Notebook and Modeling on the CPU
 Work locally, or create an ec2 instance:
 
