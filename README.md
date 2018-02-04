@@ -46,7 +46,7 @@ Run the container:
 
 ```
 eval $(docker-machine env awsnotebook)
-docker run -d -p 8888:8888 -v /home/ubuntu/pug_classifier:/home/jovyan/work mdagost/pug_classifier_notebook
+docker run -d -p 8888:8888 -v /home/ubuntu/pug_classifier:/home/anand/work mdagost/pug_classifier_notebook
 ```
 
 Get the IP of the instance:
