@@ -1,7 +1,5 @@
 # Docker and Deep Learning for Pugs ![pug](http://textemoticons.net/wp-content/uploads/2013/03/pugstanding.gif)
 
-Repo for the Strata+Hadoop World 2016 talk ["Docker for Data Scientists"](http://conferences.oreilly.com/strata/hadoop-big-data-ca/public/schedule/detail/47475).
-
 ## Introduction
 
 This repository comprises an end-to-end example of doing data science with docker.  We begin by doing interactive analysis and modeling in a jupyter notebook.  The task at hand is building a deep convolutional neural network that can recognize photos of pugs vs. photos of golden retrievers with transfer learning.  That is, we take [a pre-trained deep convolutional network](https://gist.github.com/baraldilorenzo/07d7802847aaad0a35d3) and retrain the last layer for our particular pug-recognition task.  Training can take place using docker on a CPU or on a GPU for speed.
